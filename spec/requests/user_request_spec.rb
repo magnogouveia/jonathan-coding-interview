@@ -33,8 +33,10 @@ RSpec.describe "Users", type: :request do
     context 'when fetching all users' do
       include_context 'with multiple companies'
 
-      it 'returns all the users' do
-
+      it 'returns only the users by username' do
+        get company_users_path(company_1, { username: company_1.users.first.username[0..3] })
+        
+        expect(result[0]["username"]).to eq(company_1.users.first.username)
       end
     end
   end
